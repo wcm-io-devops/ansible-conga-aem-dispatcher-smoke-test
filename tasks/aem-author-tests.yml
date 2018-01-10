@@ -1,0 +1,16 @@
+- name: "Run enforce ssl test for author"
+  static: no
+  include: ssl-enforce-test.yml
+  vars:
+    enforce_ssl_config: "{{ conga_config }}"
+  when: conga_config.httpd.ssl.enforce
+
+- name: "Check for HTTP code 401 in final http(s) response"
+  static: no
+  include: response-test.yml
+  vars:
+    response_test_config: "{{ conga_config }}"
+    response_test_expected_http_code: "{{ aemdst_author_expected_http_code }}"
+    response_test_lazy: "{{ aemdst_author_follow_redirects }}"
+    response_test_follow_redirects: "{{ aemdst_author_lazy }}"
+

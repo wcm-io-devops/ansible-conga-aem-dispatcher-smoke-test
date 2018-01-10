@@ -1,0 +1,7 @@
+- name: "Run enforce ssl test for {{ enforce_ssl_config.httpd.serverName }}"
+  include: curl.yml
+  vars:
+    curl_url: "http://{{ enforce_ssl_config.httpd.serverName }}"
+    curl_expected_url: "https://{{ enforce_ssl_config.httpd.serverNameSsl }}/"
+    curl_expected_url_test_lazy: "{{ aemdst_ssl_enforce_lazy }}"
+    curl_follow_redirects: "{{ aemdst_ssl_enforce_follow_redirects }}"

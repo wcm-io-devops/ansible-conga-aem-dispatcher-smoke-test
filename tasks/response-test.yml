@@ -1,0 +1,24 @@
+- name: "Set default (non-ssl) facts"
+  set_fact:
+    _response_test_initial_url: "http://{{ response_test_config.httpd.serverName }}"
+    _reponse_test_expected_result_url: "http://{{ response_test_config.httpd.serverName }}/"
+
+- name: "Set ssl facts"
+  set_fact:
+    _reponse_test_expected_result_url: "https://{{ response_test_config.httpd.serverNameSsl }}/"
+  when: response_test_config.httpd.ssl.enforce
+
+- debug:
+    msg:
+      - "_response_test_initial_url        : {{ _response_test_initial_url }}"
+      - "_reponse_test_expected_result_url : {{ _reponse_test_expected_result_url }}"
+      - "response_test_expected_http_code  : {{ response_test_expected_http_code }}"
+
+- name: "Check for {{ aemdst_response_test_expected_http_code }} response when following redirects"
+  include: curl.yml
+  vars:
+    curl_url: "{{ _response_test_initial_url }}"
+    curl_expected_url: "{{ _reponse_test_expected_result_url }}"
+    curl_expected_url_test_lazy: "{{ response_test_lazy }}"
+    curl_follow_redirects_expected_http_code: "{{ response_test_expected_http_code }}"
+    curl_follow_redirects: "{{ response_test_follow_redirects }}"

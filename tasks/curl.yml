@@ -1,0 +1,78 @@
+- fail:
+    msg: "Please define the url in variable: 'curl_url'"
+  when: curl_url is none
+
+- fail:
+    msg: "Please define the url in variable: 'curl_expected_url'"
+  when: curl_expected_url is none
+
+- name: "Set default facts"
+  set_fact:
+    _write_out_arg: "%{redirect_url}\n%{http_code}"
+    _location_arg: ""
+    _insecure_arg: ""
+    _expected_http_code: "{{ curl_expected_http_code }}"
+
+- name: "Set follow redirect facts"
+  set_fact:
+    _write_out_arg: "%{url_effective}\n%{http_code}"
+    _location_arg: "--location"
+    _expected_http_code: "{{ curl_follow_redirects_expected_http_code }}"
+  when: curl_follow_redirects
+
+- name: "Set allow insecure"
+  set_fact:
+    _insecure_arg: "--insecure"
+  when: curl_allow_insecure
+
+- debug:
+    msg:
+      - "check redirect from: {{ curl_url }}"
+      - "check redirect to  : {{ curl_expected_url }}"
+      - "check for http code: {{ _expected_http_code }}"
+      - "check with args    : {{ _insecure_arg }} {{ _location_arg }}"
+
+- name: "Executing curl"
+  shell: 'curl \
+    {{ _insecure_arg }} \
+    {{ _location_arg }} \
+    --write-out "{{ _write_out_arg }}" \
+    --output /dev/null --silent \
+    {{ curl_url }}'
+  register: curl_result
+
+- name: "Parse curl result"
+  set_fact:
+    _actual_url: "{{ curl_result.stdout_lines[0] }}"
+    _actual_http_code: "{{ curl_result.stdout_lines[1] }}"
+
+# lazy test, expected url can be part of actual url
+- name: "Assert that actual url matches expected url (lazy)"
+  assert:
+    that:
+      - "{{ curl_expected_url in _actual_url }}"
+    msg:
+      - "The actual url does not match with expected url (lazy)"
+      - "expected: {{ curl_expected_url }}"
+      - "actual  : {{ _actual_url }}"
+  when: curl_expected_url_test_lazy
+
+# non lazy test, exact match requested
+- name: "Assert that actual url matches expected (strict)"
+  assert:
+    that:
+      - "{{ curl_expected_url == _actual_url }}"
+    msg:
+      - "The actual url does not match with expected url (strict)"
+      - "expected: {{ curl_expected_url }}"
+      - "actual  : {{ _actual_url }}"
+  when: curl_expected_url_test_lazy == false
+
+- name: "Assert that actual response code matches {{ _expected_http_code }}"
+  assert:
+    that:
+      - "{{ _expected_http_code }} == {{ _actual_http_code }}"
+    msg:
+      - "The actual http_code does not match with expected http_code "
+      - "expected: {{ _expected_http_code }}"
+      - "actual  : {{ _actual_http_code }}"
