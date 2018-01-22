@@ -1,13 +1,13 @@
-aemdst_publish_expected_http_code: 200
-aemdst_publish_follow_redirects: true
-aemdst_publish_lazy: true
+conga_aemdst_publish_expected_http_code: 200
+conga_aemdst_publish_follow_redirects: true
+conga_aemdst_publish_lazy: true
 
-aemdst_author_expected_http_code: 401
-aemdst_author_follow_redirects: true
-aemdst_author_lazy: true
+conga_aemdst_author_expected_http_code: 401
+conga_aemdst_author_follow_redirects: true
+conga_aemdst_author_lazy: true
 
-aemdst_ssl_enforce_lazy: false
-aemdst_ssl_enforce_follow_redirects: false
+conga_aemdst_ssl_enforce_lazy: false
+conga_aemdst_ssl_enforce_follow_redirects: false
 
 curl_expected_http_code: 301
 curl_expected_url_test_lazy: false

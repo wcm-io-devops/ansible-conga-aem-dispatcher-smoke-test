@@ -14,42 +14,42 @@ higher.
 
 ## Role Variables
 
-    aemdst_publish_expected_http_code: 200
+    conga_aemdst_publish_expected_http_code: 200
 
 The expected http code of the publish dispatcher.
 
-    aemdst_publish_follow_redirects: true
+    conga_aemdst_publish_follow_redirects: true
 
 Controls if the publish dispatcher test is following redirects.
 
-    aemdst_publish_lazy: true
+    conga_aemdst_publish_lazy: true
 
 Controls if there should be a strict match between expected url and
 actual url.
 
-    aemdst_author_expected_http_code: 401
+    conga_aemdst_author_expected_http_code: 401
 
 The expected http code of the author dispatcher.
 
-    aemdst_author_follow_redirects: true
+    conga_aemdst_author_follow_redirects: true
 
 Controls if the author dispatcher test is following redirects.
 
-    aemdst_author_lazy: true
+    conga_aemdst_author_lazy: true
 
 Controls if there should be a strict match between expected and
 actual url.
 
-    aemdst_ssl_enforce_lazy: false
+    conga_aemdst_ssl_enforce_lazy: false
 
 Controls if there should be an exact match between expected and actual
-url. Use together with `aemdst_ssl_enforce_follow_redirects` because
+url. Use together with `conga_aemdst_ssl_enforce_follow_redirects` because
 following redirects may result in a lazy match.
 
-    aemdst_ssl_enforce_follow_redirects: false
+    conga_aemdst_ssl_enforce_follow_redirects: false
 
 Controls if the ssl enforce test should follow redirects. Use together
-with `aemdst_ssl_enforce_lazy` because following redirects may result in
+with `conga_aemdst_ssl_enforce_lazy` because following redirects may result in
 a lazy match.
 
 ## Dependencies
