@@ -52,6 +52,26 @@ Controls if the ssl enforce test should follow redirects. Use together
 with `conga_aemdst_ssl_enforce_lazy` because following redirects may result in
 a lazy match.
 
+    conga_aemdst_curl_expected_http_code: 301
+
+Default response code of the curl task.
+
+    conga_aemdst_curl_expected_url_test_lazy: false
+
+Default test behavior of the curl task.
+
+    conga_aemdst_curl_follow_redirects: false
+
+Default follow redirect behavior of curl task.
+
+    conga_aemdst_curl_follow_redirects_expected_http_code: 200
+
+Default expected http code when redirects are followed.
+
+    conga_aemdst_curl_allow_insecure: false
+
+Allow or disallow insecure certificates.
+
 ## Dependencies
 
 This role depends on the

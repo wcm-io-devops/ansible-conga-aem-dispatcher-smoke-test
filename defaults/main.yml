@@ -1,16 +1,35 @@
+# Expected http code of the publish dispatcher.
 conga_aemdst_publish_expected_http_code: 200
+# Controls if the publish dispatcher test is following redirects.
 conga_aemdst_publish_follow_redirects: true
+# Controls if there should be a strict match between expected url and actual url.
 conga_aemdst_publish_lazy: true
 
+# Expected http code of the author dispatcher.
 conga_aemdst_author_expected_http_code: 401
+
+# Controls if the author dispatcher test is following redirects.
 conga_aemdst_author_follow_redirects: true
+
+# Controls if there should be a strict match between expected and actual url during author dispatcher test.
 conga_aemdst_author_lazy: true
 
+# Controls if there should be an exact match between expected and actual url during ssl enforce testing
 conga_aemdst_ssl_enforce_lazy: false
+# Controls if the ssl enforce test should follow redirects. Use together with `conga_aemdst_ssl_enforce_lazy` because following redirects may result in a lazy match.
 conga_aemdst_ssl_enforce_follow_redirects: false
 
-curl_expected_http_code: 301
-curl_expected_url_test_lazy: false
-curl_follow_redirects: false
-curl_follow_redirects_expected_http_code: 200
-curl_allow_insecure: false
+# Default response code of the curl task
+conga_aemdst_curl_expected_http_code: 301
+# Default test behavior of the curl task
+conga_aemdst_curl_expected_url_test_lazy: false
+# Default follow redirect behavior of curl task
+conga_aemdst_curl_follow_redirects: false
+# Default expected http code when redirects are followed
+conga_aemdst_curl_follow_redirects_expected_http_code: 200
+# Allow or disallow insecure certificates.
+conga_aemdst_curl_allow_insecure: false
+
+# Mandatory variables that have to be provided to the curl task
+# conga_aemdst_curl_url
+# conga_aemdst_curl_expected_url
