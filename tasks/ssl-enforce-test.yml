@@ -1,7 +1,7 @@
 - name: "Run enforce ssl test for {{ enforce_ssl_config.httpd.serverName }}"
   include: curl.yml
   vars:
-    conga_aemdst_curl_url: "http://{{ enforce_ssl_config.httpd.serverName }}"
-    conga_aemdst_curl_expected_url: "https://{{ enforce_ssl_config.httpd.serverNameSsl }}/"
+    conga_aemdst_curl_url: "http://{{ enforce_ssl_config.httpd.serverName }}{{ _initial_port_suffix }}"
+    conga_aemdst_curl_expected_url: "https://{{ enforce_ssl_config.httpd.serverNameSsl }}{{ _expected_port_suffix }}/"
     conga_aemdst_curl_expected_url_test_lazy: "{{ conga_aemdst_ssl_enforce_lazy }}"
-    conga_aemdst_curl_follow_redirects_expected_http_code: "{{ conga_aemdst_ssl_enforce_follow_redirects }}"
+    conga_aemdst_curl_follow_redirects: "{{ conga_aemdst_ssl_enforce_follow_redirects }}"
