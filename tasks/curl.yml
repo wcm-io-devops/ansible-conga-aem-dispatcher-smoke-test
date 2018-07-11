@@ -40,6 +40,7 @@
     --output /dev/null --silent \
     {{ conga_aemdst_curl_url }}'
   register: curl_result
+  delegate_to: "{{ conga_aemdst_curl_host }}"
 
 - name: "Parse curl result"
   set_fact:
