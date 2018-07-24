@@ -72,6 +72,10 @@ Default expected http code when redirects are followed.
 
 Allow or disallow insecure certificates.
 
+    conga_aemdst_curl_host: "{{ inventory_hostname }}"
+
+Host from which the smoke tests are executed.
+
 ## Dependencies
 
 This role depends on the
