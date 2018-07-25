@@ -72,9 +72,13 @@ Default expected http code when redirects are followed.
 
 Allow or disallow insecure certificates.
 
-    conga_aemdst_curl_timeout: 10
+    conga_aemdst_curl_connect_timeout: 10
 
-Maximum duration in seconds for the curl operation.
+Maximum time allowed for the connection to the dispatcher in seconds.
+
+    conga_aemdst_curl_timeout: 60
+
+Maximum time allowed for the dispatcher smoke test operation in seconds.
 
     conga_aemdst_curl_host: "{{ inventory_hostname }}"
 
