@@ -37,6 +37,7 @@
     {{ _insecure_arg }} \
     {{ _location_arg }} \
     --max-time {{ conga_aemdst_curl_timeout }} \
+    --connect-timeout {{ conga_aemdst_curl_connect_timeout }} \
     --write-out "{{ _write_out_arg }}" \
     --output /dev/null --silent \
     {{ conga_aemdst_curl_url }}'
