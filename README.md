@@ -1,4 +1,4 @@
-# conga-aem-dispatcher-smoke-test
+# wcm-io-devops.conga-aem-dispatcher-smoke-test
 
 This role runs smoke tests on AEM Dispatcher for Author and Publish
 instances based upon a CONGA configuration.
@@ -87,14 +87,14 @@ Host from which the smoke tests are executed.
 ## Dependencies
 
 This role depends on the
-[conga-facts](https://github.com/wcm-io-devops/ansible-conga-facts) role
+[wcm-io-devops.conga-facts](https://github.com/wcm-io-devops/ansible-conga-facts) role
 for accessing the CONGA configuration model.
 
 ## Compiles the CONGA configuration and runs a smoke test for author and publish dispatcher from localhost
 
     - hosts: localhost
 	  roles:
-	    - conga-maven
+	    - wcm-io-devops.conga-maven
 	
 	# run smoke tests for aem publish dispatcher
 	- hosts: localhost
@@ -104,7 +104,7 @@ for accessing the CONGA configuration model.
         - conga_variant_mapping: aem-publish
     
       roles:
-      - { role: conga-aem-dispatcher-smoke-test }
+      - { role: wcm-io-devops.conga-aem-dispatcher-smoke-test }
     
     # run smoke tests for aem author dispatcher
     - hosts: localhost
@@ -114,4 +114,4 @@ for accessing the CONGA configuration model.
         - conga_variant_mapping: aem-author
     
       roles:
-        - { role: conga-aem-dispatcher-smoke-test }
+        - { role: wcm-io-devops.conga-aem-dispatcher-smoke-test }
