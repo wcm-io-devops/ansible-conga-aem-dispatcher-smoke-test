@@ -27,4 +27,4 @@ galaxy_info:
     - wcmio
 
 dependencies:
-  - wcm-io-devops.conga_facts
+  - wcm_io_devops.conga_facts
