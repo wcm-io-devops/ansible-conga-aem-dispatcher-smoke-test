@@ -17,13 +17,6 @@
     - conga_config.httpd.serverPortSsl != 443
     - conga_config.httpd.ssl.enforce
 
-- debug:
-    msg:
-      - _initial_port_suffix
-      - "{{ _initial_port_suffix }}"
-      - _expected_port_suffix
-      - "{{ _expected_port_suffix }}"
-
 - name: "Run aem-publish tests"
   static: no
   include: aem-publish-tests.yml
