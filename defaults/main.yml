@@ -29,6 +29,8 @@ conga_aemdst_curl_follow_redirects: false
 conga_aemdst_curl_follow_redirects_expected_http_code: 200
 # Allow or disallow insecure certificates.
 conga_aemdst_curl_allow_insecure: false
+# Controls the --noproxy curl argument
+conga_aemdst_curl_noproxy: false
 # Maximum time allowed for the connection to the dispatcher in seconds
 conga_aemdst_curl_connect_timeout: 10
 # Maximum time allowed for the dispatcher smoke test operation in seconds
