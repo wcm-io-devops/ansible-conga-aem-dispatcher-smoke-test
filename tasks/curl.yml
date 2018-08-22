@@ -13,6 +13,7 @@
     _write_out_arg: "%{redirect_url}\n%{http_code}"
     _location_arg: ""
     _insecure_arg: ""
+    _noproxy_arg: ""
     _expected_http_code: "{{ conga_aemdst_curl_expected_http_code }}"
 
 - name: "Set follow redirect facts"
@@ -22,10 +23,15 @@
     _expected_http_code: "{{ conga_aemdst_curl_follow_redirects_expected_http_code }}"
   when: conga_aemdst_curl_follow_redirects
 
-- name: "Set allow insecure"
+- name: "Add '--insecure'"
   set_fact:
     _insecure_arg: "--insecure"
   when: conga_aemdst_curl_allow_insecure
+
+- name: "Add '--noproxy'"
+  set_fact:
+    _insecure_arg: "--noproxy"
+  when: conga_aemdst_curl_noproxy
 
 - debug:
     msg:
@@ -38,6 +44,7 @@
   shell: 'curl \
     {{ _insecure_arg }} \
     {{ _location_arg }} \
+    {{ _noproxy_arg: "" }} \
     --max-time {{ conga_aemdst_curl_timeout }} \
     --connect-timeout {{ conga_aemdst_curl_connect_timeout }} \
     --write-out "{{ _write_out_arg }}" \

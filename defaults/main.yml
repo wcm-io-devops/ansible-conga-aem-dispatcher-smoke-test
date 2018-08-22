@@ -33,6 +33,8 @@ conga_aemdst_curl_allow_insecure: false
 conga_aemdst_curl_connect_timeout: 10
 # Maximum time allowed for the dispatcher smoke test operation in seconds
 conga_aemdst_curl_timeout: 60
+# # Controls the --no-proxy curl argument
+conga_aemdst_curl_noproxy: false
 
 # Host from which the smoke tests are executed
 conga_aemdst_curl_host: "{{ inventory_hostname }}"
