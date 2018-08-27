@@ -27,4 +27,6 @@ galaxy_info:
     - wcmio
 
 dependencies:
-  - wcm_io_devops.conga_facts
+  - { role: wcm_io_devops.conga_facts,
+      version: 1.0.0
+    }
