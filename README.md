@@ -7,6 +7,11 @@ The following tests are executed:
 * Test of SSL enforcing (when configured)
 * Response code check for Author and Publish
 
+> This role was developed as part of the
+> [wcm.io DevOps Ansible Automation for AEM](http://devops.wcm.io/ansible-aem/)
+> to integrate Ansible with
+> [CONGA](http://devops.wcm.io/conga/).
+
 ## Requirements
 
 This role requires Ansible 2.0 or higher and works with AEM 6.0 or
