@@ -77,6 +77,10 @@ Default expected http code when redirects are followed.
 
 Allow or disallow insecure certificates.
 
+    conga_aemdst_curl_noproxy: false
+
+When set to true the curl command is executed with `--noproxy "*"`.
+
     conga_aemdst_curl_connect_timeout: 10
 
 Maximum time allowed for the connection to the dispatcher in seconds.

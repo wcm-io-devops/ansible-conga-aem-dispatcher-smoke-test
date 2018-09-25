@@ -30,7 +30,7 @@
 
 - name: "Add '--noproxy'"
   set_fact:
-    _insecure_arg: "--noproxy"
+    _noproxy_arg: '--noproxy "*"'
   when: conga_aemdst_curl_noproxy
 
 - debug:
@@ -44,7 +44,7 @@
   shell: 'curl \
     {{ _insecure_arg }} \
     {{ _location_arg }} \
-    {{ _noproxy_arg: "" }} \
+    {{ _noproxy_arg }} \
     --max-time {{ conga_aemdst_curl_timeout }} \
     --connect-timeout {{ conga_aemdst_curl_connect_timeout }} \
     --write-out "{{ _write_out_arg }}" \
