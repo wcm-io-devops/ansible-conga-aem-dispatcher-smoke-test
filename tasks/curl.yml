@@ -65,10 +65,10 @@
   assert:
     that:
       - "{{ conga_aemdst_curl_expected_url in _actual_url }}"
-    msg:
-      - "The actual url does not match with expected url (lazy)"
-      - "expected: {{ conga_aemdst_curl_expected_url }}"
-      - "actual  : {{ _actual_url }}"
+    msg: >
+      The actual url does not match with expected url (lazy)
+      expected: {{ conga_aemdst_curl_expected_url }}
+      actual  : {{ _actual_url }}
   when: conga_aemdst_curl_expected_url_test_lazy
 
 # non lazy test, exact match requested
@@ -76,17 +76,17 @@
   assert:
     that:
       - "{{ conga_aemdst_curl_expected_url == _actual_url }}"
-    msg:
-      - "The actual url does not match with expected url (strict)"
-      - "expected: {{ conga_aemdst_curl_expected_url }}"
-      - "actual  : {{ _actual_url }}"
+    msg: >
+      The actual url does not match with expected url (strict)
+      expected: {{ conga_aemdst_curl_expected_url }}
+      actual  : {{ _actual_url }}
   when: conga_aemdst_curl_expected_url_test_lazy == false
 
 - name: "Assert that actual response code matches {{ _expected_http_code }}"
   assert:
     that:
       - "{{ _expected_http_code }} == {{ _actual_http_code }}"
-    msg:
-      - "The actual http_code does not match with expected http_code "
-      - "expected: {{ _expected_http_code }}"
-      - "actual  : {{ _actual_http_code }}"
+    msg: >
+      The actual http_code does not match with expected http_code
+      expected: {{ _expected_http_code }}
+      actual  : {{ _actual_http_code }}
