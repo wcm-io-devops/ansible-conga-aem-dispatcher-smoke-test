@@ -80,7 +80,7 @@
       The actual url does not match with expected url (strict)
       expected: {{ conga_aemdst_curl_expected_url }}
       actual  : {{ _actual_url }}
-  when: conga_aemdst_curl_expected_url_test_lazy == false
+  when: not conga_aemdst_curl_expected_url_test_lazy
 
 - name: "Assert that actual response code matches {{ _expected_http_code }}"
   assert:

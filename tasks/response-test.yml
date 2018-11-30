@@ -5,7 +5,8 @@
 
 - name: "Set ssl facts"
   set_fact:
-    _reponse_test_expected_result_url: "https://{{ response_test_config.httpd.serverNameSsl }}{{ _expected_port_suffix }}/"
+    _reponse_test_expected_result_url: >-
+      "https://{{ response_test_config.httpd.serverNameSsl }}{{ _expected_port_suffix }}/"
   when: response_test_config.httpd.ssl.enforce
 
 - debug:
