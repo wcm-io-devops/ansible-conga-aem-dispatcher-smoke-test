@@ -1,6 +1,6 @@
 - name: "Run enforce ssl test for tenant"
   static: no
-  include: ssl-enforce-test.yml
+  include_tasks: ssl-enforce-test.yml
   vars:
     enforce_ssl_config: "{{ _tenant.config }}"
   when: _tenant.config.httpd.ssl.enforce
@@ -10,7 +10,7 @@
 
 - name: "Check for HTTP code 200 in final http(s) response"
   static: no
-  include: response-test.yml
+  include_tasks: response-test.yml
   vars:
     response_test_config: "{{ _tenant.config }}"
     response_test_expected_http_code: "{{ conga_aemdst_publish_expected_http_code }}"

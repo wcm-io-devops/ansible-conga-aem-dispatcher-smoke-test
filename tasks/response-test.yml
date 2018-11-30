@@ -16,7 +16,7 @@
       - "response_test_expected_http_code  : {{ response_test_expected_http_code }}"
 
 - name: "Check for {{ aemdst_response_test_expected_http_code }} response when following redirects"
-  include: curl.yml
+  include_tasks: curl.yml
   vars:
     conga_aemdst_curl_url: "{{ _response_test_initial_url }}"
     conga_aemdst_curl_expected_url: "{{ _reponse_test_expected_result_url }}"
