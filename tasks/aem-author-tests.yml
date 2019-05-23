@@ -1,12 +1,10 @@
 - name: "Run enforce ssl test for author"
-  static: no
   include_tasks: ssl-enforce-test.yml
   vars:
     enforce_ssl_config: "{{ conga_config }}"
   when: conga_config.httpd.ssl.enforce
 
 - name: "Check for HTTP code 401 in final http(s) response"
-  static: no
   include_tasks: response-test.yml
   vars:
     response_test_config: "{{ conga_config }}"
