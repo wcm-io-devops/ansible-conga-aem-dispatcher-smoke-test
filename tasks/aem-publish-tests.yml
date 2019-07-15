@@ -6,6 +6,9 @@
   with_items: "{{ conga_tenants }}"
   loop_control:
     loop_var: _tenant
+  tags:
+    - conga-aemdst-ssl-enforce
+    - conga-aemdst-ssl-enforce-publish
 
 - name: "Check for HTTP code 200 in final http(s) response"
   include_tasks: response-test.yml
@@ -17,3 +20,6 @@
   with_items: "{{ conga_tenants }}"
   loop_control:
     loop_var: _tenant
+  tags:
+    - conga-aemdst-response
+    - conga-aemdst-response-publish

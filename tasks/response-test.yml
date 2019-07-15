@@ -1,25 +1,40 @@
 - name: "Set default (non-ssl) facts"
   set_fact:
     _response_test_initial_url: "http://{{ response_test_config.httpd.serverName }}{{ _initial_port_suffix }}"
-    _reponse_test_expected_result_url: "http://{{ response_test_config.httpd.serverName }}{{ _expected_port_suffix }}/"
+    _response_test_expected_result_url: "http://{{ response_test_config.httpd.serverName }}{{ _expected_port_suffix }}/"
+    _response_test_headers: []
 
-- name: "Set ssl facts"
+# When ssl is enforced and we have no ssl offloading we expect an upgrade to https during the response test.
+- name: "Set ssl facts."
   set_fact:
-    _reponse_test_expected_result_url:
+    _response_test_expected_result_url:
       "https://{{ response_test_config.httpd.serverNameSsl }}{{ _expected_port_suffix }}/"
-  when: response_test_config.httpd.ssl.enforce
+  when:
+    - response_test_config.httpd.ssl.enforce
+    - not response_test_config.httpd.ssl.offloading.enabled # when ssl is offloaded we are not expecting an https upgrade
+
+# When ssl is enforced but offloading is enabled we have to send the "X-Forwarded-Proto" header for the response test
+- name: "Set ssl-offloading facts."
+  set_fact:
+    _response_test_headers:
+      - 'X-Forwarded-Proto: https'
+  when:
+    - response_test_config.httpd.ssl.enforce
+    - response_test_config.httpd.ssl.offloading.enabled
 
 - debug:
     msg:
       - "_response_test_initial_url        : {{ _response_test_initial_url }}"
-      - "_reponse_test_expected_result_url : {{ _reponse_test_expected_result_url }}"
+      - "_response_test_expected_result_url : {{ _response_test_expected_result_url }}"
       - "response_test_expected_http_code  : {{ response_test_expected_http_code }}"
 
 - name: "Check for {{ aemdst_response_test_expected_http_code }} response when following redirects"
   include_tasks: curl.yml
   vars:
     conga_aemdst_curl_url: "{{ _response_test_initial_url }}"
-    conga_aemdst_curl_expected_url: "{{ _reponse_test_expected_result_url }}"
+    conga_aemdst_curl_expected_url: "{{ _response_test_expected_result_url }}"
     conga_aemdst_curl_expected_url_test_lazy: "{{ response_test_lazy }}"
     conga_aemdst_curl_follow_redirects_expected_http_code: "{{ response_test_expected_http_code }}"
     conga_aemdst_curl_follow_redirects: "{{ response_test_follow_redirects }}"
+    conga_aemdst_curl_headers: "{{ _response_test_headers }}"
+
