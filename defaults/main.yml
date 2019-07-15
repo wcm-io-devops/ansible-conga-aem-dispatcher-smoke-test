@@ -43,7 +43,7 @@ conga_aemdst_curl_host: "{{ inventory_hostname }}"
 # conga_aemdst_curl_url
 # conga_aemdst_curl_expected_url
 
-# Per default we resolve the hostnames of the system to localhost
+# Allows to overwrite/control the host resolve mechanism of curl
 conga_aemdst_curl_resolve:
   - host: "{{ conga_aemdst_curl_url | urlsplit('hostname') }}"
     port: "80"

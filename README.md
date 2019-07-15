@@ -93,6 +93,16 @@ Maximum time allowed for the dispatcher smoke test operation in seconds.
 
 Host from which the smoke tests are executed.
 
+    conga_aemdst_curl_resolve:
+      - host: "{{ conga_aemdst_curl_url | urlsplit('hostname') }}"
+        port: "80"
+        address: "127.0.0.1"
+      - host: "{{ conga_aemdst_curl_url | urlsplit('hostname') }}"
+        port: "443"
+        address: "127.0.0.1"
+
+Allows to overwrite/control the host resolve mechanism of curl.
+
 ## Dependencies
 
 This role depends on the
