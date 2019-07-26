@@ -89,7 +89,7 @@ Maximum time allowed for the connection to the dispatcher in seconds.
 
 Maximum time allowed for the dispatcher smoke test operation in seconds.
 
-    # conga_aemdst_curl_host: "{{ inventory_hostname }}"
+    conga_aemdst_curl_host: "{{ inventory_hostname }}"
 
 Host from which the smoke tests are executed. Per default this is the
 ansible host.
