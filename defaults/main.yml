@@ -51,4 +51,3 @@ conga_aemdst_curl_resolve:
   - host: "{{ conga_aemdst_curl_url | urlsplit('hostname') }}"
     port: "443"
     address: "127.0.0.1"
-

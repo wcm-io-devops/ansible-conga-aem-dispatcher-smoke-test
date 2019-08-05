@@ -37,4 +37,3 @@
     conga_aemdst_curl_follow_redirects_expected_http_code: "{{ response_test_expected_http_code }}"
     conga_aemdst_curl_follow_redirects: "{{ response_test_follow_redirects }}"
     conga_aemdst_curl_headers: "{{ _response_test_headers }}"
-
