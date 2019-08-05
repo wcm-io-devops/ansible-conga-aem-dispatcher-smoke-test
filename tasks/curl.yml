@@ -14,6 +14,8 @@
     _location_arg: ""
     _insecure_arg: ""
     _noproxy_arg: ""
+    _resolve_arg: ""
+    _headers_arg: ""
     _expected_http_code: "{{ conga_aemdst_curl_expected_http_code }}"
 
 - name: "Set follow redirect facts"
@@ -33,25 +35,62 @@
     _noproxy_arg: '--noproxy "*"'
   when: conga_aemdst_curl_noproxy
 
+- name: "Add '--resolve'."
+  set_fact:
+    _resolve_arg: "{{ _resolve_arg }} --resolve '{{ item.host }}:{{ item.port }}:{{ item.address }}'"
+  with_items:
+    - "{{ conga_aemdst_curl_resolve }}"
+  when: conga_aemdst_curl_resolve is defined
+
+- name: "Add '--headers'."
+  set_fact:
+    _headers_arg: "{{ _headers_arg }} --header \"{{ item }}\""
+  with_items:
+    - "{{ conga_aemdst_curl_headers }}"
+  when: conga_aemdst_curl_headers is defined
+
+- name: "Set base curl command."
+  set_fact:
+    _curl_base_command: >-
+      curl
+      {{ _insecure_arg }}
+      {{ _location_arg }}
+      {{ _noproxy_arg }}
+      {{ _resolve_arg }}
+      {{ _headers_arg }}
+      --max-time {{ conga_aemdst_curl_timeout }}
+      --connect-timeout {{ conga_aemdst_curl_connect_timeout }}
+
+- name: "{{ item }} : Set curl commands."
+  set_fact:
+    # command used internally only
+    _curl_internal_command: >-
+      {{ _curl_base_command }}
+      --write-out "{{ _write_out_arg }}"
+      --output /dev/null --silent
+      {{ conga_aemdst_curl_url }}
+    # command will be displayed to the user to ensure fast debugging
+    _curl_debug_command: >-
+      {{ _curl_base_command }}
+      {{ conga_aemdst_curl_url }}
+
 - debug:
     msg:
       - "check redirect from: {{ conga_aemdst_curl_url }}"
       - "check redirect to  : {{ conga_aemdst_curl_expected_url }}"
       - "check for http code: {{ _expected_http_code }}"
-      - "check with args    : {{ _insecure_arg }} {{ _location_arg }}"
+      - "Internal curl command:"
+      - "{{ _curl_internal_command }}"
+      - "Debug curl command:"
+      - "{{ _curl_debug_command }}"
 
 - name: "Executing curl"
-  shell: 'curl \
-    {{ _insecure_arg }} \
-    {{ _location_arg }} \
-    {{ _noproxy_arg }} \
-    --max-time {{ conga_aemdst_curl_timeout }} \
-    --connect-timeout {{ conga_aemdst_curl_connect_timeout }} \
-    --write-out "{{ _write_out_arg }}" \
-    --output /dev/null --silent \
-    {{ conga_aemdst_curl_url }}'
+  shell: "{{ _curl_internal_command }}"
   register: curl_result
   delegate_to: "{{ conga_aemdst_curl_host }}"
+  args:
+    warn: false
+  changed_when: false
   tags:
     - skip_ansible_lint
 
@@ -65,7 +104,7 @@
   assert:
     that:
       - "{{ conga_aemdst_curl_expected_url in _actual_url }}"
-    msg: >
+    msg: >-
       The actual url does not match with expected url (lazy)
       expected: {{ conga_aemdst_curl_expected_url }}
       actual  : {{ _actual_url }}
@@ -76,7 +115,7 @@
   assert:
     that:
       - "{{ conga_aemdst_curl_expected_url == _actual_url }}"
-    msg: >
+    msg: >-
       The actual url does not match with expected url (strict)
       expected: {{ conga_aemdst_curl_expected_url }}
       actual  : {{ _actual_url }}
@@ -86,7 +125,7 @@
   assert:
     that:
       - "{{ _expected_http_code }} == {{ _actual_http_code }}"
-    msg: >
+    msg: >-
       The actual http_code does not match with expected http_code
       expected: {{ _expected_http_code }}
       actual  : {{ _actual_http_code }}

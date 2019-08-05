@@ -3,6 +3,9 @@
   vars:
     enforce_ssl_config: "{{ conga_config }}"
   when: conga_config.httpd.ssl.enforce
+  tags:
+    - conga-aemdst-ssl-enforce
+    - conga-aemdst-ssl-enforce-author
 
 - name: "Check for HTTP code 401 in final http(s) response"
   include_tasks: response-test.yml
@@ -11,3 +14,6 @@
     response_test_expected_http_code: "{{ conga_aemdst_author_expected_http_code }}"
     response_test_lazy: "{{ conga_aemdst_author_follow_redirects }}"
     response_test_follow_redirects: "{{ conga_aemdst_author_lazy }}"
+  tags:
+    - conga-aemdst-response
+    - conga-aemdst-response-author
