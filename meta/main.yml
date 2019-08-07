@@ -28,5 +28,5 @@ galaxy_info:
 
 dependencies:
   - { role: wcm_io_devops.conga_facts,
-      version: 1.0.0
+      version: 1.0.1
     }
