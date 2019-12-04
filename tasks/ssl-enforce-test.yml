@@ -2,6 +2,8 @@
   include_tasks: curl.yml
   vars:
     conga_aemdst_curl_url: "http://{{ enforce_ssl_config.httpd.serverName }}{{ _initial_port_suffix }}"
+    conga_aemdst_curl_server_port: "{{ enforce_ssl_config.httpd.serverPort | default(80) }}"
+    conga_aemdst_curl_server_port_ssl: "{{ enforce_ssl_config.httpd.serverPortSsl | default(443) }}"
     conga_aemdst_curl_expected_url: "https://{{ enforce_ssl_config.httpd.serverNameSsl }}{{ _expected_port_suffix }}/"
     conga_aemdst_curl_expected_url_test_lazy: "{{ conga_aemdst_ssl_enforce_lazy }}"
     conga_aemdst_curl_follow_redirects: "{{ conga_aemdst_ssl_enforce_follow_redirects }}"

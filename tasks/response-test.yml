@@ -32,6 +32,8 @@
   include_tasks: curl.yml
   vars:
     conga_aemdst_curl_url: "{{ _response_test_initial_url }}"
+    conga_aemdst_curl_server_port: "{{ response_test_config.httpd.serverPort | default(80) }}"
+    conga_aemdst_curl_server_port_ssl: "{{ response_test_config.httpd.serverPortSsl | default(443) }}"
     conga_aemdst_curl_expected_url: "{{ _response_test_expected_result_url }}"
     conga_aemdst_curl_expected_url_test_lazy: "{{ response_test_lazy }}"
     conga_aemdst_curl_follow_redirects_expected_http_code: "{{ response_test_expected_http_code }}"
