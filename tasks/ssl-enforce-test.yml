@@ -1,9 +1,20 @@
-- name: "Run enforce ssl test for {{ enforce_ssl_config.httpd.serverName }}"
+- name: "Evaluate conga_aemdst_facts."
+  conga_aemdst_facts:
+    conga_config: "{{ enforce_ssl_config }}"
+
+- name: "Output conga_aemdst_config."
+  debug:
+    var: conga_aemdst_config
+    verbosity: 1
+
+- name: "Run enforce ssl test for {{ enforce_ssl_config.httpd.serverName }}."
   include_tasks: curl.yml
   vars:
-    conga_aemdst_curl_url: "http://{{ enforce_ssl_config.httpd.serverName }}{{ _initial_port_suffix }}"
-    conga_aemdst_curl_server_port: "{{ enforce_ssl_config.httpd.serverPort | default(80) }}"
-    conga_aemdst_curl_server_port_ssl: "{{ enforce_ssl_config.httpd.serverPortSsl | default(443) }}"
-    conga_aemdst_curl_expected_url: "https://{{ enforce_ssl_config.httpd.serverNameSsl }}{{ _expected_port_suffix }}/"
+    conga_aemdst_curl_url: "{{ conga_aemdst_config.ssl_enforce_initial_url }}"
+    conga_aemdst_curl_server_port: "{{ conga_aemdst_config.listen_port }}"
+    conga_aemdst_curl_server_port_ssl: "{{ conga_aemdst_config.listen_port_ssl }}"
+    conga_aemdst_curl_expected_url: "{{ conga_aemdst_config.ssl_enforce_expected_url }}"
     conga_aemdst_curl_expected_url_test_lazy: "{{ conga_aemdst_ssl_enforce_lazy }}"
     conga_aemdst_curl_follow_redirects: "{{ conga_aemdst_ssl_enforce_follow_redirects }}"
+    conga_aemdst_curl_resolve_ip: "{{ conga_aemdst_config.server_listen_address }}"
+    conga_aemdst_curl_resolve_ip_ssl: "{{ conga_aemdst_config.server_listen_address_ssl }}"
