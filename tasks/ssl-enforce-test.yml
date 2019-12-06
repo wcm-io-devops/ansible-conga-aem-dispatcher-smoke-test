@@ -1,6 +1,8 @@
 - name: "Evaluate conga_aemdst_facts."
   conga_aemdst_facts:
     conga_config: "{{ enforce_ssl_config }}"
+  tags:
+    - skip_ansible_lint
 
 - name: "Output conga_aemdst_config."
   debug:

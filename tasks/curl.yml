@@ -10,6 +10,8 @@
 
 - name: "Build curl command line."
   curl_cmdline_helper:
+  tags:
+    - skip_ansible_lint
 
 - debug:
     var: conga_aemdst_curl_cmdline

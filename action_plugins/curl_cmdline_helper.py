@@ -5,10 +5,7 @@ from __future__ import (absolute_import, division, print_function)
 
 __metaclass__ = type
 
-import re
-
 from ansible.plugins.action import ActionBase
-from ansible.template import Templar
 from ansible.errors import AnsibleOptionsError
 
 try:
