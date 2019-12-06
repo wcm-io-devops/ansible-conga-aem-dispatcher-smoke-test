@@ -96,11 +96,6 @@ class ActionModule(ActionBase):
             "conga_aemdst_curl_cmdline": results,
         }
 
-        # Always display resolved role and mapping
-        display.display(
-            "[[%s] => %s" %
-            (task_vars['inventory_hostname'], results))
-
         return result
 
     @staticmethod
