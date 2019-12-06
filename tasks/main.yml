@@ -1,22 +1,3 @@
-- name: "Set default port facts"
-  set_fact:
-    _initial_port_suffix: ""
-    _expected_port_suffix: ""
-
-- name: "Set custom initial port suffix"
-  set_fact:
-    _initial_port_suffix: ":{{ conga_config.httpd.serverPort }}"
-    _expected_port_suffix: ":{{ conga_config.httpd.serverPort }}"
-  when:
-    - conga_config.httpd.serverPort != 80
-
-- name: "Set custom expected port suffix (http)"
-  set_fact:
-    _expected_port_suffix: ":{{ conga_config.httpd.serverPortSsl }}"
-  when:
-    - conga_config.httpd.serverPortSsl != 443
-    - conga_config.httpd.ssl.enforce
-
 - name: "Run aem-publish tests"
   include_tasks: aem-publish-tests.yml
   when: "'aem-publish' in conga_variants"
