@@ -8,6 +8,8 @@ __metaclass__ = type
 from ansible.plugins.action import ActionBase
 from ansible.errors import AnsibleOptionsError
 
+import re
+
 try:
     from __main__ import display
 except ImportError:
@@ -34,6 +36,7 @@ class ActionModule(ActionBase):
         try:
             # Get conga_facts based config (whole or tenant config)
             config = self._get_arg_or_var('conga_config')
+            expected_url_overrides = self._get_arg_or_var('conga_aemdst_response_test_expected_url_overrides',[])
 
         except AnsibleOptionsError as err:
             return self._fail_result(result, err.message)
@@ -86,6 +89,18 @@ class ActionModule(ActionBase):
             else:
                 # when ssl is not offloaded we are expecting an ssl upgrade
                 response_test_expected_url = ssl_enforce_expected_url
+
+        # override expected url if configured
+        for expected_url_override in expected_url_overrides:
+            pattern = expected_url_override.get("pattern", None)
+            expected_url = expected_url_override.get("expected_url", None)
+            if pattern and expected_url:
+                re_pattern = re.compile(pattern)
+                re_pattern_match = re_pattern.match(response_test_expected_url)
+                if re_pattern_match:
+                    display.v("pattern matched, replacing %s with %s" % (response_test_expected_url, expected_url))
+                    response_test_expected_url = expected_url
+                break
 
         results = {
             # "config": config,

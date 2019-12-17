@@ -57,6 +57,15 @@ Controls if the ssl enforce test should follow redirects. Use together
 with `conga_aemdst_ssl_enforce_lazy` because following redirects may result in
 a lazy match.
 
+    conga_aemdst_response_test_expected_url_overrides: []
+    # example:
+    #  - pattern: http:\/\/company1\.tld\/
+    #    expected_url: https:\/\/sso.company1\.tld\/
+
+Allows overriding of expected urls by matching the `pattern` against the
+automatic calculated expected url and overwriting it with the provided
+`expected_url`.
+
     conga_aemdst_curl_expected_http_code: 301
 
 Default response code of the curl task.
