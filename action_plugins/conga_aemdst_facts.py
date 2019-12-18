@@ -36,7 +36,7 @@ class ActionModule(ActionBase):
         try:
             # Get conga_facts based config (whole or tenant config)
             config = self._get_arg_or_var('conga_config')
-            expected_url_overrides = self._get_arg_or_var('conga_aemdst_response_test_expected_url_overrides',[])
+            expected_url_overrides = self._get_arg_or_var('conga_aemdst_response_test_expected_url_overrides', [], False)
 
         except AnsibleOptionsError as err:
             return self._fail_result(result, err.message)
