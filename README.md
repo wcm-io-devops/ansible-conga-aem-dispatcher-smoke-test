@@ -14,7 +14,7 @@ The following tests are executed:
 
 ## Requirements
 
-This role requires Ansible 2.0 or higher and works with AEM 6.0 or
+This role requires Ansible 2.7 or higher and works with AEM 6.0 or
 higher.
 
 ## Role Variables
