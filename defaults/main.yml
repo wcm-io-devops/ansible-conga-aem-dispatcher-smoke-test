@@ -24,7 +24,7 @@ conga_aemdst_ssl_enforce_follow_redirects: false
 conga_aemdst_response_test_expected_url_overrides: []
 # example:
 #  - pattern: http:\/\/company1\.tld\/
-#    expected_url: https:\/\/sso.company1\.tld\/
+#    expected_url: https://sso.company1.tld/
 
 
 # Default response code of the curl task
