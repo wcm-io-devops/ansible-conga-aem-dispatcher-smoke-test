@@ -133,6 +133,7 @@ class ActionModule(ActionBase):
 
     def _get_arg_or_var(self, name, default=None, is_required=True):
         ret = self._task.args.get(name, self._task_vars.get(name, default))
+        ret = self._templar.template(ret)
         if is_required and not ret:
             raise AnsibleOptionsError("parameter %s is required" % name)
         else:

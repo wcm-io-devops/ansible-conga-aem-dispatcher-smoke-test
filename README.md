@@ -60,7 +60,7 @@ a lazy match.
     conga_aemdst_response_test_expected_url_overrides: []
     # example:
     #  - pattern: http:\/\/company1\.tld\/
-    #    expected_url: https:\/\/sso.company1\.tld\/
+    #    expected_url: https://sso.company1.tld/
 
 Allows overriding of expected urls by matching the `pattern` against the
 automatic calculated expected url and overwriting it with the provided
