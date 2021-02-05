@@ -1,4 +1,5 @@
+---
 - name: test role syntax
   hosts: test
   roles:
-    - ansible-conga-aem-dispatcher-smoke-test
+    - wcm_io_devops.conga_aem_dispatcher_smoke_test

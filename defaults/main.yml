@@ -1,3 +1,4 @@
+---
 # Expected http code of the publish dispatcher.
 conga_aemdst_publish_expected_http_code: 200
 # Controls if the publish dispatcher test is following redirects.

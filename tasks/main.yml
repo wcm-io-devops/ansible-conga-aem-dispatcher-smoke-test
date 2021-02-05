@@ -1,3 +1,4 @@
+---
 - name: "Run aem-publish tests"
   include_tasks: aem-publish-tests.yml
   when: "'aem-publish' in conga_variants"

@@ -1,3 +1,4 @@
+---
 - name: "Run enforce ssl test for tenant"
   include_tasks: ssl-enforce-test.yml
   vars:
