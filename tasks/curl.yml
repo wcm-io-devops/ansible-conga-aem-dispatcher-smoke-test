@@ -1,3 +1,4 @@
+---
 - name: Fail when 'conga_aemdst_curl_url' is not defined.
   fail:
     msg: "Please define the url in variable: 'conga_aemdst_curl_url'"

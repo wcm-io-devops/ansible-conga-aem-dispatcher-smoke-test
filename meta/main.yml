@@ -1,3 +1,4 @@
+---
 galaxy_info:
   role_name: conga_aem_dispatcher_smoke_test
   author: Tobias Richter
@@ -8,17 +9,17 @@ galaxy_info:
   min_ansible_version: 2.7
 
   platforms:
-  - name: Ubuntu
-    versions:
-    - trusty
-    - xenial
-  - name: Debian
-    versions:
-    - jessie
-    - stretch
-  - name: EL
-    versions:
-    - 7
+    - name: Ubuntu
+      versions:
+        - trusty
+        - xenial
+    - name: Debian
+      versions:
+        - jessie
+        - stretch
+    - name: EL
+      versions:
+        - 7
 
   galaxy_tags:
     - aem
@@ -27,6 +28,5 @@ galaxy_info:
     - wcmio
 
 dependencies:
-  - { role: wcm_io_devops.conga_facts,
-      version: 1.0.1
-    }
+  - role: wcm_io_devops.conga_facts
+    version: 1.0.1
