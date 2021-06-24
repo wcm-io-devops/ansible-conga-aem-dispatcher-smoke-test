@@ -100,6 +100,8 @@ class ActionModule(ActionBase):
                 if re_pattern_match:
                     display.v("pattern matched, replacing %s with %s" % (response_test_expected_url, expected_url))
                     response_test_expected_url = expected_url
+                    # override ssl_enforce_expected_url as well
+                    ssl_enforce_expected_url = expected_url
                     break
 
         results = {
