@@ -16,6 +16,7 @@
     conga_aemdst_curl_server_port_ssl: "{{ conga_aemdst_config.listen_port_ssl }}"
     conga_aemdst_curl_expected_url: "{{ conga_aemdst_config.ssl_enforce_expected_url }}"
     conga_aemdst_curl_expected_url_test_lazy: "{{ conga_aemdst_ssl_enforce_lazy }}"
+    conga_aemdst_curl_response_test_http_code_override: "{{ conga_aemdst_config.response_test_http_code_override }}"
     conga_aemdst_curl_follow_redirects: "{{ conga_aemdst_ssl_enforce_follow_redirects }}"
     conga_aemdst_curl_resolve_ip: "{{ conga_aemdst_config.server_listen_address }}"
     conga_aemdst_curl_resolve_ip_ssl: "{{ conga_aemdst_config.server_listen_address_ssl }}"

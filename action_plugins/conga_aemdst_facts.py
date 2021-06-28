@@ -69,6 +69,8 @@ class ActionModule(ActionBase):
 
         response_test_headers = []
 
+        response_test_http_code_override = None
+
         # when ssl is enforced and not offloaded we are expecting the ssl port
         if ssl_enforce and not ssl_offloading_enabled:
             expected_port = listen_port_ssl
@@ -83,24 +85,30 @@ class ActionModule(ActionBase):
         response_test_expected_url = response_test_initial_url + "/"
 
         if ssl_enforce:
+            response_test_expected_url = ssl_enforce_expected_url
             if ssl_offloading_enabled:
-                # when ssl is offloaded we have to simulate a forwareded https request
+                # when ssl is offloaded we have to simulate a forwarded https request
                 response_test_headers.append("X-Forwarded-Proto: https")
-            else:
-                # when ssl is not offloaded we are expecting an ssl upgrade
-                response_test_expected_url = ssl_enforce_expected_url
 
         # override expected url if configured
         for expected_url_override in expected_url_overrides:
             pattern = expected_url_override.get("pattern", None)
             expected_url = expected_url_override.get("expected_url", None)
-            if pattern and expected_url:
+            http_code_override = expected_url_override.get("response_code", None)
+            if pattern:
                 re_pattern = re.compile(pattern)
                 re_pattern_match = re_pattern.match(response_test_expected_url)
                 if re_pattern_match:
-                    display.v("pattern matched, replacing %s with %s" % (response_test_expected_url, expected_url))
-                    response_test_expected_url = expected_url
+                    if expected_url:
+                        display.v("pattern matched, replacing %s with %s" % (response_test_expected_url, expected_url))
+                        response_test_expected_url = expected_url
+                    if http_code_override:
+                        display.v("pattern matched, replacing expected http code with %s" % http_code_override)
+                        response_test_http_code_override = http_code_override
                     break
+                else:
+                    display.v("pattern not matched; pattern: %s, expected url: %s" % (pattern,
+                                                                                      response_test_expected_url))
 
         results = {
             # "config": config,
@@ -116,7 +124,8 @@ class ActionModule(ActionBase):
             "ssl_enforce_expected_url": ssl_enforce_expected_url,
             "response_test_headers": response_test_headers,
             "response_test_initial_url": response_test_initial_url,
-            "response_test_expected_url": response_test_expected_url
+            "response_test_expected_url": response_test_expected_url,
+            "response_test_http_code_override": response_test_http_code_override,
         }
 
         result["ansible_facts"] = {
