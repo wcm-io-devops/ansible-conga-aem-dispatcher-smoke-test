@@ -106,9 +106,6 @@ class ActionModule(ActionBase):
                         display.v("pattern matched, replacing expected http code with %s" % http_code_override)
                         response_test_http_code_override = http_code_override
                     break
-                else:
-                    display.v("pattern not matched; pattern: %s, expected url: %s" % (pattern,
-                                                                                      response_test_expected_url))
 
         results = {
             # "config": config,
