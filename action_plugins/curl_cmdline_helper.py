@@ -44,6 +44,7 @@ class ActionModule(ActionBase):
             conga_aemdst_curl_headers = self._get_arg_or_var('conga_aemdst_curl_headers', [], False)
             conga_aemdst_curl_timeout = self._get_arg_or_var('conga_aemdst_curl_timeout')
             conga_aemdst_curl_connect_timeout = self._get_arg_or_var('conga_aemdst_curl_connect_timeout')
+            conga_aemdst_curl_response_test_http_code_override = self._get_arg_or_var('conga_aemdst_curl_response_test_http_code_override', None)
 
         except AnsibleOptionsError as err:
             return self._fail_result(result, err.message)
@@ -81,6 +82,9 @@ class ActionModule(ActionBase):
                                                                                             write_out_arg,
                                                                                             conga_aemdst_curl_url)
         curl_debug_command = "{} {}".format(curl_base_command, conga_aemdst_curl_url)
+
+        if conga_aemdst_curl_response_test_http_code_override:
+            expected_http_code = conga_aemdst_curl_response_test_http_code_override
 
         results = {
             "curl_base_command": curl_base_command,
