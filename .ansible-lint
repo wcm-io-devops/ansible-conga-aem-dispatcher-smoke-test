@@ -3,3 +3,4 @@ exclude_paths:
 
 skip_list:
  - yaml
+ - fqcn-builtins
