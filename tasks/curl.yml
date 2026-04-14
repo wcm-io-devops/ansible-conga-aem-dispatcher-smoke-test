@@ -32,8 +32,6 @@
   shell: "{{ conga_aemdst_curl_cmdline.curl_internal_command }}"
   register: curl_result
   delegate_to: "{{ conga_aemdst_curl_host }}"
-  args:
-    warn: false
   changed_when: false
   tags:
     - skip_ansible_lint
@@ -68,7 +66,7 @@
 - name: "Assert that actual response code matches {{ conga_aemdst_curl_cmdline.expected_http_code }}"
   assert:
     that:
-      - "{{ conga_aemdst_curl_cmdline.expected_http_code }} == {{ _actual_http_code }}"
+      - conga_aemdst_curl_cmdline.expected_http_code | int == _actual_http_code | int
     msg: >-
       The actual http_code does not match with expected http_code
       expected: {{ conga_aemdst_curl_cmdline.expected_http_code }}
