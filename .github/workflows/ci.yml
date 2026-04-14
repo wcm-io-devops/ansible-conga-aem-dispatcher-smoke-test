@@ -81,8 +81,6 @@ jobs:
 
   galaxy:
     name: "Ansible Galaxy import"
-    needs:
-      - lint
     if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     steps:
